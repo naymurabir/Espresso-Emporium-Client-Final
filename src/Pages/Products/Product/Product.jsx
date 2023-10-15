@@ -1,11 +1,17 @@
 import PropTypes from 'prop-types';
 import { FaRegEye, FaEdit, } from 'react-icons/fa';
 import { AiOutlineDelete } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Product = ({ product, handleDeleteCoffee }) => {
 
     const { _id, name, price, quantity, photo } = product
+
+    const navigate = useNavigate()
+    const handleShowDetails = () => {
+        navigate(`/details/${_id}`)
+    }
+
 
     return (
         <div>
@@ -20,7 +26,7 @@ const Product = ({ product, handleDeleteCoffee }) => {
                     </div>
 
                     <div className='flex justify-around my-3'>
-                        <FaRegEye className='text-3xl text-[#df9b42]'></FaRegEye>
+                        <FaRegEye onClick={handleShowDetails} className='text-3xl text-[#df9b42]'></FaRegEye>
 
                         <Link to={`/updateCoffee/${_id}`}>
                             <FaEdit className='text-3xl text-black'></FaEdit>

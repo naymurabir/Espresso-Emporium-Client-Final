@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+import { useContext } from "react";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
+
+    const userInfo = useContext(AuthContext)
+    const { createUser } = userInfo
 
     const handleRegister = e => {
         e.preventDefault()
@@ -9,7 +17,40 @@ const Register = () => {
         const email = form.get('email')
         const photo = form.get('photo')
         const password = form.get('password')
-        console.log(name, email, photo, password);
+        const termsAccepted = form.get('terms')
+        console.log(name, email, photo, password, termsAccepted);
+
+        if (password.length < 6) {
+            toast("Password length must be 6 characters long.")
+            return
+        }
+
+        else if (!/[A-Z]/.test(password)) {
+            toast("Password must have an Uppercase letter.")
+            return
+        }
+
+        else if (!/[@#$%^&+=!]/.test(password)) {
+            toast("Password must have a special character. [hints: @#$%^&+=!]");
+            return;
+        }
+
+        else if (!termsAccepted) {
+            toast("Please accept our terms and conditions before register.")
+            return
+        }
+
+        //Call create user function and pass the email & password
+        createUser(email, password)
+            .then(result => {
+                const user = result.user
+                console.log(user);
+                toast("User created successfully.")
+                e.target.reset()
+            })
+            .catch(error => {
+                console.log("Error:", error.massage);
+            })
     }
 
     return (
@@ -78,6 +119,7 @@ const Register = () => {
                     <div className="text-center mt-2">
                         <h3>Already have an Account? <Link className=" text-[#372727] font-bold text-lg  ml-2" to="/login">SignIn</Link> </h3>
                     </div>
+                    <ToastContainer></ToastContainer>
                 </div>
 
 
