@@ -1,6 +1,25 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import userImg from '../../assets/user.png'
 
 const Navbar = () => {
+
+    const userInfo = useContext(AuthContext)
+    const { user, logOut } = userInfo
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                toast("Logout Successful")
+            })
+            .catch(error => {
+                console.log();
+                toast(error.message)
+            })
+    }
 
     const navLinks = <>
         <NavLink to="/" className="md:text-white text-lg mr-3">Home</NavLink>
@@ -30,9 +49,28 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link to="/login">
-                    <button className="bg-white text-black px-3 py-1 rounded">Login</button>
-                </Link>
+
+
+                <div>
+                    {
+                        user ?
+                            <div>
+                                <button onClick={handleLogOut} className="bg-white text-black px-3 py-1 rounded">Logout</button>
+                            </div>
+                            :
+                            <div className="flex items-center gap-2">
+                                <label >
+                                    <div >
+                                        <img className="w-10 rounded-full" src={userImg} />
+                                    </div>
+                                </label>
+                                <Link to="/login">
+                                    <button className="bg-white text-black px-3 py-1 rounded">Login</button>
+                                </Link>
+                            </div>
+                    }
+                </div>
+                <ToastContainer></ToastContainer>
             </div>
         </div>
     );

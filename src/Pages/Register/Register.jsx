@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const Register = () => {
 
     const userInfo = useContext(AuthContext)
-    const { createUser } = userInfo
+    const { createUser, logOut } = userInfo
 
     const handleRegister = e => {
         e.preventDefault()
@@ -47,6 +47,7 @@ const Register = () => {
                 console.log(user);
                 toast("User created successfully.")
                 e.target.reset()
+                logOut()
             })
             .catch(error => {
                 console.log("Error:", error.massage);
