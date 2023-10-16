@@ -51,7 +51,10 @@ const Register = () => {
                 toast("User created successfully.")
 
                 const createdAt = result.user?.metadata?.creationTime
-                const user = { email, name, createdAt: createdAt }
+                const loggedInAt = result.user?.metadata?.lastSignInTime
+
+
+                const user = { email, name, createdAt: createdAt, loggedInAt: loggedInAt }
 
                 fetch('http://localhost:5000/user', {
                     method: 'POST',

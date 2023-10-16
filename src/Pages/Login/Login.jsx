@@ -24,8 +24,23 @@ const Login = () => {
         // Call login user and pass email and password
         loginUser(email, password)
             .then(result => {
-                const user = result.user
-                console.log(user);
+                console.log(result.user);
+
+                const lastSignInTime = result.user.metadata.lastSignInTime
+                const user = { email, lastLoggedAt: lastSignInTime }
+
+                fetch('/http://localhost:5000/users', {
+                    method: 'PATCH',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                    })
+
                 navigate(location?.state ? location.state : '/')
                 toast("User login successful.")
                 e.target.reset()
