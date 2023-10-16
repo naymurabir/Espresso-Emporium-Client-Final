@@ -54,14 +54,16 @@ const Navbar = () => {
                 <div>
                     {
                         user ?
-                            <div>
+                            <div className="flex gap-4">
+                                <div className="flex items-center gap-2"> <h2 className="text-sm font-semibold text-white hidden md:block">{user?.displayName}</h2> <img className="w-10 h-10 rounded-full" src={user?.photoURL} alt="" /> </div>
+
                                 <button onClick={handleLogOut} className="bg-white text-black px-3 py-1 rounded">Logout</button>
                             </div>
                             :
                             <div className="flex items-center gap-2">
                                 <label >
                                     <div >
-                                        <img className="w-10 rounded-full" src={userImg} />
+                                        <img className="w-10 h-10 rounded-full" src={userImg} />
                                     </div>
                                 </label>
                                 <Link to="/login">

@@ -1,14 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { useContext } from "react";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { updateProfile } from "firebase/auth";
+
 
 const Register = () => {
 
     const userInfo = useContext(AuthContext)
     const { createUser, logOut } = userInfo
+
+    const navigate = useNavigate()
 
     const handleRegister = e => {
         e.preventDefault()
@@ -46,8 +50,23 @@ const Register = () => {
                 const user = result.user
                 console.log(user);
                 toast("User created successfully.")
+
+
+                //Update user
+                updateProfile(user, {
+                    displayName: name,
+                    photoURL: photo
+                })
+                    .then(() => {
+                        console.log("User updated");
+                        navigate('/login')
+                        logOut()
+                    })
+                    .catch(error => {
+                        console.log(error.message);
+                    })
                 e.target.reset()
-                logOut()
+
             })
             .catch(error => {
                 console.log("Error:", error.massage);
