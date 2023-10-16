@@ -8,6 +8,7 @@ import Register from "../Pages/Register/Register";
 import ProductDetails from "../Pages/ProductDetails/ProductDetails";
 import PrivateRoute from "../Pages/PrivateRoute/PrivateRoute";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import Users from "../Pages/Users/Users";
 
 const router = createBrowserRouter([
     {
@@ -40,7 +41,11 @@ const router = createBrowserRouter([
                 path: '/details/:id',
                 loader: ({ params }) => fetch(`http://localhost:5000/coffee/${params.id}`),
                 element: <PrivateRoute> <ProductDetails></ProductDetails> </PrivateRoute>
-
+            },
+            {
+                path: '/users',
+                loader: () => fetch('http://localhost:5000/users'),
+                element: <Users></Users>
             }
         ]
     }

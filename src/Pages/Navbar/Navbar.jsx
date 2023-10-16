@@ -26,7 +26,8 @@ const Navbar = () => {
 
         <NavLink to="/addCoffee" className="md:text-white text-lg mr-3">Add Coffee</NavLink>
 
-        <NavLink to="/register" className="md:text-white text-lg mr-3">Register</NavLink>
+        <NavLink to="/users" className="md:text-white text-lg mr-3">Users</NavLink>
+
     </>
 
     return (

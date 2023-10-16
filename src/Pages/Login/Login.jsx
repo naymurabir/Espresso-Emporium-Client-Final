@@ -9,7 +9,7 @@ import { FcGoogle } from 'react-icons/fc';
 const Login = () => {
 
     const userInfo = useContext(AuthContext)
-    const { loginUser, googleLogin } = userInfo
+    const { loginUser, googleLogin, githubLogin } = userInfo
 
     const location = useLocation()
     const navigate = useNavigate()
@@ -50,6 +50,16 @@ const Login = () => {
                 toast(error.message)
             })
 
+    }
+
+    const handleGithubLogin = () => {
+        githubLogin()
+            .then(result => {
+                const user = result.user
+                console.log(user);
+                navigate(location?.state ? location.state : '/')
+                toast("User logged in successfully.")
+            })
     }
 
     return (
@@ -105,7 +115,7 @@ const Login = () => {
 
                             <span className="w-5/6 px-4 py-3 font-bold text-center text-[#372727]">Sign in with Google</span>
                         </button>
-                        <button className="flex items-center justify-center mt-2 transform border rounded-lg dark:border-gray-700">
+                        <button onClick={handleGithubLogin} className="flex items-center justify-center mt-2 transform border rounded-lg dark:border-gray-700">
                             <div className="px-4 py-2">
                                 <FaGithub className="w-6 h-6"></FaGithub>
                             </div>

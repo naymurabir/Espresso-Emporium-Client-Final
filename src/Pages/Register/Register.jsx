@@ -47,18 +47,33 @@ const Register = () => {
         //Call create user function and pass the email & password
         createUser(email, password)
             .then(result => {
-                const user = result.user
-                console.log(user);
+                console.log(result.user);
                 toast("User created successfully.")
+
+                const createdAt = result.user?.metadata?.creationTime
+                const user = { email, name, createdAt: createdAt }
+
+                fetch('http://localhost:5000/user', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
+                })
+                    .then(res => res.json)
+                    .then(data => {
+                        console.log(data);
+                        toast("User's email and passed has been stored in DB.")
+                    })
 
 
                 //Update user
-                updateProfile(user, {
+                updateProfile(result.user, {
                     displayName: name,
                     photoURL: photo
                 })
                     .then(() => {
-                        console.log("User updated");
+                        toast("User updated");
                         navigate('/login')
                         logOut()
                     })
@@ -70,6 +85,7 @@ const Register = () => {
             })
             .catch(error => {
                 console.log("Error:", error.massage);
+                toast("Your email is already used.")
             })
     }
 
@@ -114,7 +130,7 @@ const Register = () => {
                             name="photo"
                             placeholder="Photo url..."
                             className="input input-bordered"
-                            required />
+                        />
                     </div>
 
                     <div className="form-control">
