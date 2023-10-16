@@ -6,6 +6,7 @@ import UpdateCoffee from "../Pages/UpdateCoffee/UpdateCoffee";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import ProductDetails from "../Pages/ProductDetails/ProductDetails";
+import PrivateRoute from "../Pages/PrivateRoute/PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -35,8 +36,9 @@ const router = createBrowserRouter([
             },
             {
                 path: '/details/:id',
-                element: <ProductDetails></ProductDetails>,
-                loader: ({ params }) => fetch(`http://localhost:5000/coffee/${params.id}`)
+                loader: ({ params }) => fetch(`http://localhost:5000/coffee/${params.id}`),
+                element: <PrivateRoute> <ProductDetails></ProductDetails> </PrivateRoute>
+
             }
         ]
     }
