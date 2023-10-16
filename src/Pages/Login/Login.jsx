@@ -1,15 +1,15 @@
 import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { FaGithub } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
 
 const Login = () => {
 
     const userInfo = useContext(AuthContext)
-    const { loginUser } = userInfo
+    const { loginUser, googleLogin } = userInfo
 
     const location = useLocation()
     const navigate = useNavigate()
@@ -37,11 +37,26 @@ const Login = () => {
 
     }
 
+    const handleGoogleLogin = () => {
+        googleLogin()
+            .then(result => {
+                const user = result.user
+                navigate(location?.state ? location.state : '/')
+                console.log(user);
+                toast("User logged in successfully.")
+            })
+            .catch(error => {
+                console.log("Error", error.message);
+                toast(error.message)
+            })
+
+    }
+
     return (
         <div>
             <form onSubmit={handleLogin}>
 
-                <h2 className="text-2xl text-center font-bold mt-3 text-[#372727]">Register your account</h2>
+                <h2 className="text-2xl text-center font-bold mt-3 text-[#372727]">Log In</h2>
 
                 <div className=" md:w-3/4 lg:w-1/2 mx-auto px-3 md:px-5 py-2 md:py-5 my-3 md:my-5 shadow-lg ">
 
@@ -81,10 +96,25 @@ const Login = () => {
                     <div className="text-center mt-2">
                         <h3>Do not have an Account?<Link className=" text-[#372727] font-bold text-lg ml-2" to="/register">Register</Link> </h3>
                     </div>
+
+                    <div className="flex justify-around flex-col md:flex-row md:gap-2">
+                        <button onClick={handleGoogleLogin} className="flex items-center justify-center mt-2 transform border rounded-lg dark:border-gray-700">
+                            <div className="px-4 py-2">
+                                <FcGoogle className="w-6 h-6"></FcGoogle>
+                            </div>
+
+                            <span className="w-5/6 px-4 py-3 font-bold text-center text-[#372727]">Sign in with Google</span>
+                        </button>
+                        <button className="flex items-center justify-center mt-2 transform border rounded-lg dark:border-gray-700">
+                            <div className="px-4 py-2">
+                                <FaGithub className="w-6 h-6"></FaGithub>
+                            </div>
+
+                            <span className="w-5/6 px-4 py-3 font-bold text-center text-[#372727] ">Sign in with Github</span>
+                        </button>
+                    </div>
                     <ToastContainer></ToastContainer>
                 </div>
-
-
             </form>
         </div>
     );

@@ -7,11 +7,13 @@ import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import ProductDetails from "../Pages/ProductDetails/ProductDetails";
 import PrivateRoute from "../Pages/PrivateRoute/PrivateRoute";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <Root></Root>,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 path: '/',
@@ -19,11 +21,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/addCoffee',
-                element: <AddCoffee></AddCoffee>
+                element: <PrivateRoute> <AddCoffee> </AddCoffee> </PrivateRoute>
             },
             {
                 path: '/updateCoffee/:id',
-                element: <UpdateCoffee></UpdateCoffee>,
+                element: <PrivateRoute> <UpdateCoffee></UpdateCoffee> </PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5000/coffee/${params.id}`)
             },
             {
