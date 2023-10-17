@@ -27,7 +27,7 @@ const router = createBrowserRouter([
             {
                 path: '/updateCoffee/:id',
                 element: <PrivateRoute> <UpdateCoffee></UpdateCoffee> </PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/coffee/${params.id}`)
+                loader: ({ params }) => fetch(`https://espresso-emporium-server-e5fc1hl1h-naymur-rahman-abirs-projects.vercel.app/coffee/${params.id}`)
             },
             {
                 path: '/login',
@@ -39,12 +39,12 @@ const router = createBrowserRouter([
             },
             {
                 path: '/details/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/coffee/${params.id}`),
+                loader: ({ params }) => fetch(`https://espresso-emporium-server-e5fc1hl1h-naymur-rahman-abirs-projects.vercel.app/coffee/${params.id}`),
                 element: <PrivateRoute> <ProductDetails></ProductDetails> </PrivateRoute>
             },
             {
                 path: '/users',
-                loader: () => fetch('http://localhost:5000/users'),
+                loader: () => fetch('https://espresso-emporium-server-e5fc1hl1h-naymur-rahman-abirs-projects.vercel.app/users'),
                 element: <Users></Users>
             }
         ]

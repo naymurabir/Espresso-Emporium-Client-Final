@@ -14,7 +14,7 @@ const AddCoffee = () => {
         const newCoffee = { name, quantity, price, description, category, photo }
         console.log(newCoffee);
 
-        fetch('http://localhost:5000/coffee', {
+        fetch('https://espresso-emporium-server-e5fc1hl1h-naymur-rahman-abirs-projects.vercel.app/coffee', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

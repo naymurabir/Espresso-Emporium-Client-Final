@@ -13,7 +13,7 @@ const Products = () => {
     const [products, setProducts] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:5000/coffee')
+        fetch('https://espresso-emporium-server-e5fc1hl1h-naymur-rahman-abirs-projects.vercel.app/coffee')
             .then(res => res.json())
             .then(data => setProducts(data))
     }, [])
@@ -30,7 +30,7 @@ const Products = () => {
         })
             .then((willDelete) => {
                 if (willDelete) {
-                    fetch(`http://localhost:5000/coffee/${id}`, {
+                    fetch(`https://espresso-emporium-server-e5fc1hl1h-naymur-rahman-abirs-projects.vercel.app/coffee/${id}`, {
                         method: 'DELETE'
                     })
                         .then(res => res.json())

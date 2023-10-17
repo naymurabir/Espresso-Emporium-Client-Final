@@ -20,7 +20,7 @@ const Users = () => {
         })
             .then((willDelete) => {
                 if (willDelete) {
-                    fetch(`http://localhost:5000/users/${id}`, {
+                    fetch(`https://espresso-emporium-server-e5fc1hl1h-naymur-rahman-abirs-projects.vercel.app/users/${id}`, {
                         method: 'DELETE'
                     })
                         .then(res => res.json())

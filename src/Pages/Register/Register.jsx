@@ -56,7 +56,7 @@ const Register = () => {
 
                 const user = { email, name, createdAt: createdAt, loggedInAt: loggedInAt }
 
-                fetch('http://localhost:5000/user', {
+                fetch('https://espresso-emporium-server-e5fc1hl1h-naymur-rahman-abirs-projects.vercel.app/user', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

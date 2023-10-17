@@ -29,7 +29,7 @@ const Login = () => {
                 const lastSignInTime = result.user.metadata.lastSignInTime
                 const user = { email, lastLoggedAt: lastSignInTime }
 
-                fetch('/http://localhost:5000/users', {
+                fetch('https://espresso-emporium-server-e5fc1hl1h-naymur-rahman-abirs-projects.vercel.app/users', {
                     method: 'PATCH',
                     headers: {
                         'content-type': 'application/json'
